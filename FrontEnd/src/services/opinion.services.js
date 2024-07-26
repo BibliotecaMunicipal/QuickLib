@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const URL_API = "https://quicklib-ugh1.onrender.com/api";
+const URL_API = "https://quicklib-backend.onrender.com/api";
 
 export const registerOpinion = async (opinion) => {
     return axios.post(`${URL_API}/register/opinion`, opinion);
