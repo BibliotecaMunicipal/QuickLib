@@ -139,7 +139,7 @@ const CategoryBook = () => {
       Swal.fire({
         icon: 'success',
         title: '¡Libro Agregado!',
-        text: El libro "${book.title}" ha sido agregado a tus reservas.,
+        text: `El libro "${book.title}" ha sido agregado a tus reservas.`,
       });
     } catch (error) {
       Swal.fire({
