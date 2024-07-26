@@ -218,74 +218,54 @@ const CategoryBook = () => {
                   placeholder="Buscar por título o autor"
                   value={searchTerm}
                   onChange={handleSearch}
-                  className="border-2 border-gray-300 rounded-lg py-2 px-4 w-72 focus:outline-none focus:border-blue-500"
+                  className="border-2 border-gray-300 rounded-lg py-2 px-4 pr-10 focus:outline-none focus:border-blue-500 dark:bg-gray-800 dark:text-white"
                 />
-                <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-700">
-                  <BsSearch />
-                </div>
+                <BsSearch className="absolute right-2 top-3 text-gray-500 dark:text-white" />
               </div>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 px-4 mt-4">
-            {filteredBooks.map((book, index) => (
-  <div
-    key={book.ISBN}
-    className="bg-white bg-opacity-80 rounded-lg shadow-lg p-4 dark:bg-neutral-700"
-  >
-    <div className="relative">
-      <img
-        src={book.imageURL || ImagenFija}
-        alt={book.title}
-        className="w-full h-40 object-cover rounded-lg"
-      />
-      <div className="absolute inset-0 flex justify-center items-center bg-black bg-opacity-50 opacity-0 hover:opacity-100 transition-opacity duration-300">
-        <button
-          className="text-white bg-blue-500 px-2 py-1 rounded-md hover:bg-blue-600 focus:outline-none"
-          onClick={() => toggleDescription(index)}
-        >
-          {book.expanded ? 'Ver menos' : 'Ver más'}
-        </button>
-      </div>
-    </div>
-    <div className="mt-2">
-      <p className="text-lg font-semibold">Titulo: {book.title}</p>
-      <p className="text-sm text-gray-600">Autor: {book.author}</p>
-      <p className="text-sm text-gray-600">ISBN: {book.ISBN}</p>
-      {book.status ? (
-        <>
-          {book.expanded && (
-            <div className="mt-2">
-              <p className="text-sm">Ejemplares Diponibles: {book.copies}</p>
-              <p className="text-sm">Año De Publicacion: {book.yearPublication}</p>
-            </div>
-          )}
-          <div className="flex justify-between items-center mt-4">
-            <button
-              className={`flex items-center space-x-1 text-white ${book.status ? 'bg-green-500 hover:bg-green-600' : 'bg-gray-300 cursor-not-allowed' } px-3 py-1 rounded-md focus:outline-none`}
-              onClick={() => book.status && handleAddBook(index)}
-              disabled={!book.status}
-            >
-              <RiAddFill />
-              <span>{book.status ? 'Apartar' : 'Agotado'}</span>
-            </button>
-            {reservations.some(reservation => reservation.ISBN === book.ISBN) && (
-              <button
-                className="flex items-center space-x-1 text-white bg-red-500 px-3 py-1 rounded-md hover:bg-red-600 focus:outline-none"
-                onClick={() => handleDeleteBook(book.ISBN)}
-              >
-                <RiDeleteBinFill />
-                <span>Eliminar Apartado</span>
-              </button>
-            )}
           </div>
-        </>
-      ) : (
-        <p className="text-red-500 mt-2">Agotado</p>
-      )}
-    </div>
-  </div>
-))}
-
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
+            {filteredBooks.map((book, index) => (
+              <div
+                key={book.ISBN}
+                className="bg-white rounded-lg shadow-lg overflow-hidden transform transition-transform duration-300 hover:scale-105 dark:bg-gray-800"
+              >
+                <div className="relative">
+                  <img
+                    src={book.imageURL}
+                    alt="Portada del libro"
+                    className="w-full h-64 object-cover object-center"
+                  />
+                  {reservations.find(reservation => reservation.ISBN === book.ISBN) ? (
+                    <button
+                      onClick={() => handleDeleteBook(book.ISBN)}
+                      className="absolute top-2 right-2 text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-600"
+                    >
+                      <RiDeleteBinFill size={32} />
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => handleAddBook(index)}
+                      className="absolute top-2 right-2 text-green-500 hover:text-green-700 dark:text-green-400 dark:hover:text-green-600"
+                    >
+                      <RiAddFill size={32} />
+                    </button>
+                  )}
+                </div>
+                <div className="p-4">
+                  <h3 className="text-lg font-bold text-gray-800 dark:text-white">{book.title}</h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">Autor: {book.author}</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">Categoría: {categoryNames[book.category]}</p>
+                  <button
+                    onClick={() => toggleDescription(index)}
+                    className="mt-2 text-blue-500 hover:underline dark:text-blue-400"
+                  >
+                    {book.expanded ? 'Ocultar descripción' : 'Mostrar descripción'}
+                  </button>
+                  {book.expanded && <p className="mt-2 text-gray-700 dark:text-gray-300">{book.description}</p>}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
@@ -294,3 +274,4 @@ const CategoryBook = () => {
 };
 
 export default CategoryBook;
+
