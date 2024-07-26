@@ -201,7 +201,7 @@ const PrincipalPage = () => {
           <Button onClick={handleLogin} className="text-2xl font-mono text-white bg-blue-600 hover:bg-blue-500 italic rounded-full w-36 h-12">Empezar</Button>
         </nav>
     )}
-    <div id='home'>
+    <div id="home">
     <CarouselDefault />
     </div>
   
@@ -327,7 +327,7 @@ const PrincipalPage = () => {
     </div>
   </div>
     {/* Perfil de Personal */}
-    <div id='personal' className="relative z-10 mx-auto mt-4 mb-8 w-full md:w-2/3 bg-gray-100 p-8 rounded-3xl shadow-lg">
+    <div id="personal" className="relative z-10 mx-auto mt-4 mb-8 w-full md:w-2/3 bg-gray-100 p-8 rounded-3xl shadow-lg">
       <h2 className="text-2xl font-bold mb-4 text-center">Personal</h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {profiles
@@ -408,7 +408,7 @@ const PrincipalPage = () => {
 
 
   {/* Sección de contacto */}
-  <div id='opinion' className="relative z-10 mx-auto mt-4 mb-8 w-full md:w-2/3 bg-gray-100 p-8 rounded-3xl shadow-lg">
+  <div id="opinion" className="relative z-10 mx-auto mt-4 mb-8 w-full md:w-2/3 bg-gray-100 p-8 rounded-3xl shadow-lg">
       <h2 className="text-2xl font-bold mb-4 text-center">Contáctanos</h2>
       <div className="flex flex-col md:flex-row justify-around items-start">
         <div className="flex flex-col items-center mb-4 md:mb-0">
