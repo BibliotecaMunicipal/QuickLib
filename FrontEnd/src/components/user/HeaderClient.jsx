@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext1.jsx';
 import logo from '../../assets/logo_jaz.png';
 import Swal from 'sweetalert2';
@@ -15,6 +15,7 @@ const MySwal = withReactContent(Swal);
 
 const HeaderClient = ({ changeTheme, theme }) => {
   const { logout } = useAuth();
+  const location = useLocation();
   const [user, setUser] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -87,7 +88,7 @@ const HeaderClient = ({ changeTheme, theme }) => {
     <div className={`relative flex flex-col justify-between items-center bg-gradient-to-r from-green-600 via-white to-red-600 p-4 rounded-md shadow-md mb-4 transition-colors duration-300 ${theme === 'dark' ? 'bg-black text-white' : ''}`}>
       <div className="flex justify-between items-center w-full">
         <img src={logo} alt="Logo" className="h-24 py-5" />
-        <div className="flex items-center space-x-2">
+        <div className="hidden md:flex items-center space-x-2">
           <Link to="/Usuarios" className="text-xl text-white"><IoHome /></Link>
           <Link to="/Carrito" className="text-xl text-white"><GiBookshelf /></Link>
           <button className="text-xl text-white" onClick={toggleTheme}>
@@ -110,10 +111,18 @@ const HeaderClient = ({ changeTheme, theme }) => {
           <Link to="/Carrito" className="block py-2 hover:text-blue-600">
             Libros Prestados
           </Link>
+          <button className="block py-2 text-left hover:text-blue-600" onClick={toggleTheme}>
+            {theme === 'dark' ? '☀️' : '🌙'} Cambiar Tema
+          </button>
+          <button className="block py-2 text-left hover:text-blue-600" onClick={handlePerfil}>
+            👤 Perfil
+          </button>
+          <button className="block py-2 text-left hover:text-blue-600" onClick={handleLogout}>
+            Cerrar Sesión
+          </button>
         </nav>
       )}
     </div>
-    
   );
 };
 
