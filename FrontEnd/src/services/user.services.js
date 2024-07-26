@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const URL_API = "http://localhost:3000/api";
+const URL_API = "https://quicklib-ugh1.onrender.com/api";
 
 export function login(user) {
     return axios.post(`${URL_API}/login/user`, user);
