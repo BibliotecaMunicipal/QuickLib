@@ -28,20 +28,20 @@ const CarritoPrestamo = ({ username }) => {
     <div className={`relative min-h-screen ${theme === 'dark' ? 'bg-black text-white' : 'bg-white text-black'}`}>
       <HeaderClient changeTheme={changeTheme} theme={theme} />
       <div className="flex flex-col items-center justify-center p-4">
-        <div className="flex w-full justify-between items-center">
-          <div className="flex flex-col space-y-4 p-4">
+        <div className="flex flex-col md:flex-row w-full justify-between items-center space-y-4 md:space-y-0 md:space-x-4">
+          <div className="flex flex-col space-y-4 p-4 w-full md:w-1/2">
             {loading && <p>Cargando...</p>}
             {error && <p>{error}</p>}
             {!loading && !error && loans.length === 0 && <p>No hay libros prestados.</p>}
             {loans.map((loan) => (
-              <div key={loan.idLoan} className="bg-gray-500 bg-opacity-30 backdrop-blur-md rounded-lg p-4 text-justify w-96 h-28">
+              <div key={loan.idLoan} className="bg-gray-500 bg-opacity-30 backdrop-blur-md rounded-lg p-4 text-justify w-full md:w-96 h-28">
                 <h2 className="text-lg font-bold">{loan.title}</h2>
                 <p>Autor: {loan.author}</p>
                 <p>Días Restantes: {calculateDaysRemaining(loan.finalDate)}</p>
               </div>
             ))}
           </div>
-          <div className="relative w-1/2 h-96 rounded-96 overflow-hidden shadow-lg bg-cover bg-center" style={{ backgroundImage: `url(${backgroundImage})` }}>
+          <div className="relative w-full md:w-1/2 h-96 rounded-96 overflow-hidden shadow-lg bg-cover bg-center" style={{ backgroundImage: `url(${backgroundImage})` }}>
             <div className="absolute inset-0 bg-black opacity-30 rounded-full"></div>
           </div>
         </div>
