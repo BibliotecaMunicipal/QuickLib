@@ -175,10 +175,10 @@ const PrincipalPage = () => {
     <div className="flex justify-between items-center bg-gradient-to-r from-green-600 via-white to-red-600 p-4 rounded-md shadow-md mb-4">
       <img src={logo} alt="Logo" className="h-24 py-5" />
 <nav className="hidden md:flex space-x-10 text-black text-lg">
-  <Link to="#home" className="hover:text-blue-600">Home</Link>
-  <Link to="#personal" className="hover:text-blue-600">Personal</Link>
-  <Link to="#buzon" className="hover:text-blue-600">Buzon</Link>
-  <Link to="#opinion" className="hover:text-blue-600">Opiniones</Link>
+  <Link to="home" className="hover:text-blue-600">Home</Link>
+  <Link to="personal" className="hover:text-blue-600">Personal</Link>
+  <Link to="buzon" className="hover:text-blue-600">Buzon</Link>
+  <Link to="opinion" className="hover:text-blue-600">Opiniones</Link>
 </nav>
       <div className="hidden md:flex items-center space-x-2">
         <Button className="text-2xl font-mono text-white bg-blue-600 hover:bg-blue-500 italic rounded-full w-36 h-12" onClick={handleLogin} >Empezar</Button>
@@ -194,10 +194,10 @@ const PrincipalPage = () => {
     {/* Mobile Menu */}
     {menuOpen && (
   <nav className="md:hidden bg-gradient-to-r from-green-600 via-white to-red-600 p-4 rounded-md shadow-md">
-    <Link to="#home" className="block py-2 hover:text-blue-600">Home</Link>
-    <Link to="#personal" className="block py-2 hover:text-blue-600">Personal</Link>
-    <Link to="#buzon" className="block py-2 hover:text-blue-600">Buzon</Link>
-    <Link to="#opinion" className="block py-2 hover:text-blue-600">Opiniones</Link>
+    <Link to="home" className="block py-2 hover:text-blue-600">Home</Link>
+    <Link to="personal" className="block py-2 hover:text-blue-600">Personal</Link>
+    <Link to="buzon" className="block py-2 hover:text-blue-600">Buzon</Link>
+    <Link to="opinion" className="block py-2 hover:text-blue-600">Opiniones</Link>
     <Button onClick={handleLogin} className="text-2xl font-mono text-white bg-blue-600 hover:bg-blue-500 italic rounded-full w-36 h-12">Empezar</Button>
   </nav>
     )}
