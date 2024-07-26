@@ -1,7 +1,7 @@
 import axios from "axios";
 
 
-const URL_API = "https://quicklib-ugh1.onrender.com/api";
+const URL_API = "https://quicklib-backend.onrender.com/api";
 
 export const getDonations = async (token) => {
     return axios.get(`${URL_API}/getAllBook/donation`, { headers: { Authorization: token}})
