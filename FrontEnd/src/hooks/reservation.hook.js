@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { getClient } from '../hooks/client.hook';
 import { registerReservation, deleteReservationFromApi, getUserCountReservation, getAllReservation, deleteReservation} from '../services/reservation.services';
-import { Reservations } from '../../../src/models/models';
 
 export const useAddReservation = () => {
     const [loading, setLoading] = useState(false);
