@@ -1,6 +1,8 @@
+/* eslint-disable no-unused-vars */
 
 import React from 'react';
-import { Routes, Route, BrowserRouter, HashRouter } from 'react-router-dom';
+// eslint-disable-next-line no-unused-vars
+import { Routes, Route,  HashRouter } from 'react-router-dom';
 import Login from './Pages/Login.jsx';
 import Consultas from './Pages/Admin/Consultas/Consultas.jsx';
 import Bandeja from "./Pages/Admin/Bandeja.jsx";
@@ -15,6 +17,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import ProtectedRoute from './utils/protected.jsx';
 import {} from "@nextui-org/react";
 import './index.css';
+
 // eslint-disable-next-line no-unused-vars
 import SesionRoute from './components/SesionRoute.jsx';
 import CategoryBook from './components/user/categoryBook.jsx';
