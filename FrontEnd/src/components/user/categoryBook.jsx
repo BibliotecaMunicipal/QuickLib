@@ -6,8 +6,9 @@ import { getClient } from "../../hooks/client.hook";
 import Swal from 'sweetalert2';
 import { RiAddFill, RiDeleteBinFill } from "react-icons/ri";
 import { BsSearch } from "react-icons/bs";
-import HeaderClient from "./HeaderClient.jsx"
+import HeaderClient from "./HeaderClient.jsx";
 
+// Imágenes de categorías
 import Gene from "../../assets/gif/imagen_interior/literatura.jpg";
 import Filo from "../../assets/gif/imagen_interior/filosodiaa.jpg";
 import Reli from "../../assets/gif/imagen_interior/religionn.jpg";
@@ -20,6 +21,7 @@ import Lit from "../../assets/gif/imagen_interior/generalidadess.jpg";
 import Hisge from "../../assets/gif/imagen_interior/historia.jpg";
 import ImagenFija from "../../assets/gif/imagen-fija.jpg";
 
+// Mapas de imágenes y nombres de categorías
 const imageCategory = {
   0: Gene,
   100: Filo,
@@ -47,20 +49,22 @@ const categoryNames = {
 };
 
 const CategoryBook = () => {
-  const { categoryId } = useParams();
-  const [books, setBooks] = useState([]);
-  const [filteredBooks, setFilteredBooks] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [theme, setTheme] = useState('light');
-  const [searchTerm, setSearchTerm] = useState('');
-  const [reservations, setReservations] = useState([]);
-  const [username, setUsername] = useState('');
-  const { count, loading: countLoading, error: countError } = useGetCountUserReservation(username);
+  const { categoryId } = useParams(); // Obtener el ID de la categoría desde los parámetros de la ruta
+  const [books, setBooks] = useState([]); // Estado para los libros
+  const [filteredBooks, setFilteredBooks] = useState([]); // Estado para los libros filtrados
+  const [loading, setLoading] = useState(true); // Estado para la carga de datos
+  const [error, setError] = useState(null); // Estado para errores
+  const [theme, setTheme] = useState('light'); // Estado para el tema (claro/oscuro)
+  const [searchTerm, setSearchTerm] = useState(''); // Estado para el término de búsqueda
+  const [reservations, setReservations] = useState([]); // Estado para las reservas
+  const [username, setUsername] = useState(''); // Estado para el nombre de usuario
 
+  // Hooks para manejar reservas
+  const { count, loading: countLoading, error: countError } = useGetCountUserReservation(username);
   const { addReservation } = useAddReservation();
   const { deleteReservation } = useDeleteReservation();
 
+  // Obtener datos del cliente
   useEffect(() => {
     const fetchClient = async () => {
       try {
@@ -73,14 +77,14 @@ const CategoryBook = () => {
     fetchClient();
   }, []);
 
+  // Obtener libros por categoría
   useEffect(() => {
     const fetchBooks = async () => {
       try {
         const data = await useGetBooksByCategory(categoryId);
-        // Agregar la propiedad status a cada libro
-        const booksWithStatus = data.map(book => ({ ...book, status: book.status})); // Ejemplo de condición, ajustar según tu lógica
+        const booksWithStatus = data.map(book => ({ ...book, status: book.status }));
         setBooks(booksWithStatus);
-        setFilteredBooks(booksWithStatus); // Inicialmente muestra todos los libros
+        setFilteredBooks(booksWithStatus);
       } catch (error) {
         setError(error);
       } finally {
@@ -90,7 +94,7 @@ const CategoryBook = () => {
     fetchBooks();
   }, [categoryId]);
 
-  // Cambia entre tema claro y oscuro
+  // Cambiar el tema de la página
   useEffect(() => {
     if (theme === 'dark') {
       document.documentElement.classList.add('dark');
@@ -99,12 +103,7 @@ const CategoryBook = () => {
     }
   }, [theme]);
 
-  // Cambiar entre tema claro y oscuro
-  const changeTheme = () => {
-    setTheme(prevTheme => (prevTheme === 'light' ? 'dark' : 'light'));
-  };
-
-  // Filtra libros por término de búsqueda
+  // Manejar el cambio del término de búsqueda
   const handleSearch = (event) => {
     const searchTerm = event.target.value.toLowerCase();
     setSearchTerm(searchTerm);
@@ -115,7 +114,7 @@ const CategoryBook = () => {
     setFilteredBooks(filteredResults);
   };
 
-  // Agrega un libro a las reservas del cliente
+  // Manejar la adición de un libro a las reservas
   const handleAddBook = async (index) => {
     const book = books[index];
     const client = await getClient();
@@ -130,12 +129,9 @@ const CategoryBook = () => {
       author: book.author,
       category: book.category,
     };
-    console.log(reservationData);
     try {
-      console.log("hola");
       await addReservation(reservationData);
       setReservations([...reservations, reservationData]);
-      console.log("Hola");
       Swal.fire({
         icon: 'success',
         title: '¡Libro Agregado!',
@@ -150,14 +146,14 @@ const CategoryBook = () => {
     }
   };
 
-  // Mostrar u ocultar la descripción de un libro
+  // Alternar la descripción del libro
   const toggleDescription = (index) => {
     const newBooks = [...books];
     newBooks[index].expanded = !newBooks[index].expanded;
     setBooks(newBooks);
   };
 
-  // Elimina una reserva de un libro
+  // Manejar la eliminación de una reserva
   const handleDeleteBook = async (ISBN) => {
     const client = await getClient();
     try {
@@ -177,7 +173,7 @@ const CategoryBook = () => {
     }
   };
 
-  // Determina el color de la barra de progreso según la cantidad de libros reservados
+  // Obtener color del progreso basado en la cantidad de reservas
   const getProgressColor = () => {
     if (count === 1) return 'bg-yellow-500';
     if (count === 2) return 'bg-orange-500';
@@ -185,7 +181,7 @@ const CategoryBook = () => {
     return 'bg-gray-200';
   };
 
-  // Mensaje de la barra de progreso según la cantidad de libros reservados
+  // Obtener mensaje de progreso basado en la cantidad de reservas
   const getProgressMessage = () => {
     if (count === 1) return 'Tienes 1 libro apartado';
     if (count === 2) return 'Tienes 2 libros apartados';
@@ -194,7 +190,7 @@ const CategoryBook = () => {
   };
 
   return (
-    <div className={min-h-screen flex flex-col ${theme === 'dark' ? 'dark' : ''}}>
+    <div className={`min-h-screen flex flex-col ${theme === 'dark' ? 'dark' : ''}`}>
       <HeaderClient changeTheme={changeTheme} theme={theme} />
       <div className="relative flex-grow">
         <div className="absolute inset-0">
@@ -208,7 +204,7 @@ const CategoryBook = () => {
               className="w-full h-full object-cover"
             />
             <div className="absolute top-4 left-4 flex justify-center items-center space-x-4">
-              <div className={h-6 w-48 ${getProgressColor()} rounded-full}></div>
+              <div className={`h-6 w-48 ${getProgressColor()} rounded-full`}></div>
               <p className="text-white">{getProgressMessage()}</p>
             </div>
             <div className="absolute bottom-4 right-4 flex flex-col items-end space-y-4 transition-transform duration-300 transform focus-within:scale-105">
@@ -218,54 +214,50 @@ const CategoryBook = () => {
                   placeholder="Buscar por título o autor"
                   value={searchTerm}
                   onChange={handleSearch}
-                  className="border-2 border-gray-300 rounded-lg py-2 px-4 pr-10 focus:outline-none focus:border-blue-500 dark:bg-gray-800 dark:text-white"
+                  className="pl-10 pr-4 py-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
-                <BsSearch className="absolute right-2 top-3 text-gray-500 dark:text-white" />
+                <BsSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-gray-400" />
               </div>
             </div>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
-            {filteredBooks.map((book, index) => (
-              <div
-                key={book.ISBN}
-                className="bg-white rounded-lg shadow-lg overflow-hidden transform transition-transform duration-300 hover:scale-105 dark:bg-gray-800"
-              >
-                <div className="relative">
-                  <img
-                    src={book.imageURL}
-                    alt="Portada del libro"
-                    className="w-full h-64 object-cover object-center"
-                  />
-                  {reservations.find(reservation => reservation.ISBN === book.ISBN) ? (
-                    <button
-                      onClick={() => handleDeleteBook(book.ISBN)}
-                      className="absolute top-2 right-2 text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-600"
-                    >
-                      <RiDeleteBinFill size={32} />
-                    </button>
-                  ) : (
+          <div className="p-4">
+            {loading && <p className="text-center text-gray-500">Cargando...</p>}
+            {error && <p className="text-center text-red-500">Error al cargar los datos.</p>}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {filteredBooks.map((book, index) => (
+                <div key={book.ISBN} className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg relative">
+                  <div className="flex justify-between items-center">
+                    <div>
+                      <h3 className="text-lg font-bold text-gray-900 dark:text-white">{book.title}</h3>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">{book.author}</p>
+                    </div>
                     <button
                       onClick={() => handleAddBook(index)}
-                      className="absolute top-2 right-2 text-green-500 hover:text-green-700 dark:text-green-400 dark:hover:text-green-600"
+                      className="text-green-500 hover:text-green-700"
                     >
-                      <RiAddFill size={32} />
+                      <RiAddFill />
+                    </button>
+                  </div>
+                  <div className="mt-2">
+                    <button
+                      onClick={() => toggleDescription(index)}
+                      className="text-blue-500 hover:text-blue-700"
+                    >
+                      {book.expanded ? 'Ocultar Descripción' : 'Mostrar Descripción'}
+                    </button>
+                    {book.expanded && <p className="mt-2 text-gray-700 dark:text-gray-300">{book.description}</p>}
+                  </div>
+                  {reservations.some(reservation => reservation.ISBN === book.ISBN) && (
+                    <button
+                      onClick={() => handleDeleteBook(book.ISBN)}
+                      className="mt-2 text-red-500 hover:text-red-700"
+                    >
+                      <RiDeleteBinFill />
                     </button>
                   )}
                 </div>
-                <div className="p-4">
-                  <h3 className="text-lg font-bold text-gray-800 dark:text-white">{book.title}</h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">Autor: {book.author}</p>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">Categoría: {categoryNames[book.category]}</p>
-                  <button
-                    onClick={() => toggleDescription(index)}
-                    className="mt-2 text-blue-500 hover:underline dark:text-blue-400"
-                  >
-                    {book.expanded ? 'Ocultar descripción' : 'Mostrar descripción'}
-                  </button>
-                  {book.expanded && <p className="mt-2 text-gray-700 dark:text-gray-300">{book.description}</p>}
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </div>
