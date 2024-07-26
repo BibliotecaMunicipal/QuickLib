@@ -146,11 +146,6 @@ const HeaderAdmin = () => {
           <Link to="/Consulta" className="block py-2 hover:text-blue-600">
             Consultas
           </Link>
-            <button className="text-xl text-white" onClick={toggleTheme}>
-            {theme === 'dark' ? '☀' : '🌙'} Cambiar Tema
-          </button>
-          <button onClick={handlePerfil} className="text-xl text-white">👤 Editar Perfil</button>
-          <IoLogOut onClick={handleLogout} />
         </nav>
       )}
     </div>
