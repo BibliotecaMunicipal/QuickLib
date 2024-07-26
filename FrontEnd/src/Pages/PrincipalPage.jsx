@@ -62,6 +62,7 @@ const profiles = [
 
 ]; 
 
+
 const PrincipalPage = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [name, setName] = useState('');
