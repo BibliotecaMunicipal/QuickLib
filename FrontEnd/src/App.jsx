@@ -2,7 +2,7 @@
 
 import React from 'react';
 // eslint-disable-next-line no-unused-vars
-import { Routes, Route,  BrowserRouter } from 'react-router-dom';
+import { Routes, Route,  BrowserRouter, HashRouter } from 'react-router-dom';
 import Login from './Pages/Login.jsx';
 import Consultas from './Pages/Admin/Consultas/Consultas.jsx';
 import Bandeja from "./Pages/Admin/Bandeja.jsx";
@@ -29,12 +29,16 @@ function App() {
         <>
         <QueryClientProvider client={queryClient}>
             <AuthProvider>
-                <BrowserRouter>
+                <HashRouter>
                     <Routes>
                         <Route path="/" element={<PrincipalPage />} />
                         <Route path="/PrincipalPage" element={<PrincipalPage />} />
                         
-                        <Route path="/login" element={<Login />} />
+                        <Route path="/login" element={
+                        <SesionRoute>
+                             <Login />
+                        </SesionRoute>
+                       } />
                         <Route path="/verificate" element={<CheckScreen />} />
                         
                         <Route element={<ProtectedRoute roles={['admin']} />}>
@@ -53,7 +57,7 @@ function App() {
                         
                         <Route path="/verifyed" element={<CheckScreen />} />
                     </Routes>
-                </BrowserRouter>
+                </HashRouter>
             </AuthProvider>
         </QueryClientProvider>
         </>
