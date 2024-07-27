@@ -12,7 +12,6 @@ const SesionRoute = ({ children }) => {
             return <Navigate to="/Usuarios" replace />;
         }
     }
-
     return children;
 }
 
