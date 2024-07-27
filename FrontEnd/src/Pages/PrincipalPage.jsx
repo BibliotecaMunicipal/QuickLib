@@ -200,7 +200,11 @@ const PrincipalPage = () => {
           <a href="#personal" className="block py-2 hover:text-blue-600">Personal</a>
           <a href="#buzon" className="block py-2 hover:text-blue-600">Buzon</a>
           <a href="#opinion" className="block py-2 hover:text-blue-600">Opiniones</a>
-          <Button onClick={handleLogin} className="text-2xl font-mono text-white bg-blue-600 hover:bg-blue-500 italic rounded-full w-36 h-12">Empezar</Button>
+          <Button onClick={handleLogin} className="text-2xl font-mono text-white bg-blue-600 hover:bg-blue-500 italic rounded-full w-36 h-12">
+              {localStorage.getItem("token") != null
+              ? "Dashboard"
+              : "Empezar"}
+          </Button>
         </nav>
     )}
     <div id="home">
