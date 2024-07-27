@@ -35,9 +35,9 @@ function App() {
                         <Route path="/PrincipalPage" element={<PrincipalPage />} />
                         
                         <Route path="/login" element={
-                        <SesionRoute>
-                             <Login />
-                        </SesionRoute>
+                            <SesionRoute>
+                                <Login />
+                            </SesionRoute>
                        } />
                         <Route path="/verificate" element={<CheckScreen />} />
                         
