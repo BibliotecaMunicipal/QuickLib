@@ -2,14 +2,18 @@ import { useContext } from "react";
 import { Navigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext1.jsx";
 
-const SesionRoute = ({ Children }) => {
-    const { isAuthenticated } = useContext(AuthContext);
+const SesionRoute = ({ children }) => {
+    const { isAuthenticated, userRole } = useContext(AuthContext);
 
-    if(isAuthenticated){
-        return <Navigate to="/Dashboard" replace />
+    if (isAuthenticated) {
+        if (userRole === 'admin') {
+            return <Navigate to="/Dashboard" replace />;
+        } else if (userRole === 'client') {
+            return <Navigate to="/Usuarios" replace />;
+        }
     }
 
-    return Children;
+    return children;
 }
 
 export default SesionRoute;
